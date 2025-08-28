@@ -2,8 +2,20 @@
 
 import { useEffect, useState } from "react"
 
-const TimerDisplay = (props) => {
-  return <h1>{props.second}</h1>
+const TimerDisplay = ({second}) => {
+  const hours = Math.floor(second / 3600);
+  const minutes = Math.floor((second % 3600) / 60);
+  const remainingSecond = second % 60;
+
+  const formatTime = (time) => {
+    return time < 10 ? `0${time}` : time;
+  }
+
+  return (
+    <h1>
+      {formatTime(hours)}:{formatTime(minutes)}:{formatTime(remainingSecond)}
+    </h1>
+  );
 }
 
 const TimerControl = (props) => {
