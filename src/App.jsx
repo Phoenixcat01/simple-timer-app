@@ -51,7 +51,7 @@ export default function App() {
     if (isRunning) {
       intervalId = setInterval(() => {
         if (isReversed) {
-          if (isRunning === 0) {
+          if (seconds === 0) {
             setIsRunning(false);
           } else {
             setSeconds(prevSecond => prevSecond - 1)
