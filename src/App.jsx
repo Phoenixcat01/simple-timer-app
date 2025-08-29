@@ -18,11 +18,12 @@ const TimerDisplay = ({second}) => {
   );
 }
 
-const TimerControl = (props) => {
+const TimerControl = ({onToggle, isRunning, onReset, onReverse, isReversed}) => {
   return (
   <>
-    <button onClick={props.onToggle} >{props.isRunning ? 'Stop' : 'Start'}</button>
-    <button onClick={props.onReset} >Reset</button>
+    <button onClick={onToggle} >{isRunning ? 'Stop' : 'Start'}</button>
+    <button onClick={onReset} >Reset</button>
+    <button onClick={onReverse}>{isReversed ? 'Go Forward' : 'Go Backward'}</button>
   </>
   )
 }
@@ -30,6 +31,7 @@ const TimerControl = (props) => {
 export default function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [isReversed, setIsReversed] = useState(false);
 
   const toggleTimer = () => {
     setIsRunning(prevIsRunning => !prevIsRunning)
@@ -39,21 +41,34 @@ export default function App() {
     setSeconds(0); setIsRunning(false);
   };
 
+  const reverseTimer = () => {
+    setIsReversed(prevIsReversed => !prevIsReversed);
+    setIsRunning(false);
+  }
+
   useEffect(() => {
     let intervalId;
     if (isRunning) {
       intervalId = setInterval(() => {
-        setSeconds(prevSeconds => prevSeconds + 1);
+        if (isReversed) {
+          if (isRunning === 0) {
+            setIsRunning(false);
+          } else {
+            setSeconds(prevSecond => prevSecond - 1)
+          }
+        } else {
+          setSeconds(prevSecond => prevSecond + 1);
+        }
       },1000);
     }
     return () => clearInterval(intervalId)
-  }, [isRunning])
+  }, [isRunning, isReversed, seconds]);
 
   return (
     <>
       <div>
         <TimerDisplay second={seconds}/>
-        <TimerControl onToggle={toggleTimer} onReset={resetTimer} isRunning={isRunning} />
+        <TimerControl onToggle={toggleTimer} onReset={resetTimer} onReverse={reverseTimer} isRunning={isRunning} isReversed={isReversed} />
       </div>
     </>
   )
