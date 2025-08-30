@@ -49,6 +49,26 @@ export default function App() {
   const [isFinished, setIsFinished] = useState(false);
   const intervalRef = useRef();
 
+  const [mousePosition, setMousePosition] = useState({ x: null, y: null });
+
+  const cardRef = useRef(null);
+  const handleMouseMove = (e) => {
+    if (cardRef.current) {
+      const rect = cardRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   const toggleTimer = () => {
     if (!isRunning && seconds === 0 && inputSeconds > 0) {
       setSeconds(inputSeconds);
@@ -99,17 +119,22 @@ export default function App() {
   }, [isRunning, isReversed]);
 
   return (
-    <>
-      <h1>Customizable Timer</h1>
-      <div>
-        <label htmlFor="">Set Timer (in seconds) : </label>
-        <input type="number" value={inputSeconds} onChange={handleInputChange} />
+    <div className="neon-effect-container" style={{
+      "--mouse-x": `${mousePosition.x}px`,
+      "--mouse-y": `${mousePosition.y}px`
+    }}>
+      <div className="card" ref={cardRef}>
+        <h1>Customizable Timer</h1>
+        <div>
+          <label htmlFor="">Set Timer (in seconds) : </label>
+          <input type="number" value={inputSeconds} onChange={handleInputChange} />
+        </div>
+        <div>
+          <TimerDisplay seconds={seconds}/>
+          {isFinished && <h2>FINISH!</h2>}
+          <TimerControl onToggle={toggleTimer} onReset={resetTimer} onReverse={reverseTimer} isRunning={isRunning} isReversed={isReversed} />
+        </div>
       </div>
-      <div>
-        <TimerDisplay seconds={seconds}/>
-        {isFinished && <h2>FINISH!</h2>}
-        <TimerControl onToggle={toggleTimer} onReset={resetTimer} onReverse={reverseTimer} isRunning={isRunning} isReversed={isReversed} />
-      </div>
-    </>
+    </div>
   )
 };
