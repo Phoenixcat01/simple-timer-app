@@ -21,6 +21,46 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow: hidden;
+  background-color: #0d0d0d;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: 
+    radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+    radial-gradient(2px 2px at 40px 100px, #3991da, transparent);
+  background-size: 50px 50px;
+  animation: move-bg-1 160s linear infinite;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: 
+    radial-gradient(3px 3px at 50px 80px, #fcffcf, transparent),
+    radial-gradient(3px 3px at -20px -20px, #fff, transparent),
+    radial-gradient(3px 3px at 70px 60px, #9ae1fd, transparent);
+  background-size: 80px 80px;
+  animation: move-bg-2 120s linear infinite;
+}
+
+@keyframes move-bg-1 {
+  from {background-position: 0 0;}
+  to {background-position: 1000px 1000px;}
+}
+@keyframes move-bg-2 {
+  from {background-position: 0 0;}
+  to {background-position: 1500px 1500px;}
 }
 
 h1 {
@@ -55,6 +95,7 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 }
 
 .card {
@@ -62,10 +103,10 @@ button:focus-visible {
   z-index: 10;
   width: 500px;
   max-width: 90%;
-  background-color: rgba(45, 45, 45, 0.8);
+  background-color: rgba(39, 39, 39, 0.8);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -96,7 +137,7 @@ button:focus-visible {
   margin: 20px 0px;
   padding: 30px 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .time-group {
@@ -144,14 +185,4 @@ button:focus-visible {
 .button-group {
   display: flex;
   gap: 1em;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
