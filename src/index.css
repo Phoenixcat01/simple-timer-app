@@ -13,19 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -54,13 +46,69 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  background-color: #3b3f46;
+  margin: 20px 0px;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0, 0.3);
+}
+
+.time-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-value {
+  font-size: 2.8em;
+  font-weight: 700;
+  color: #61dafb;
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.5s ease-out;
+}
+
+/* Spin Animation */
+.time-value[key]:not(:empty) {
+  animation: spin 0.5s ease-out;
+}
+
+@keyframes spin {
+    from {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+.time-label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #ccc;
+  margin-top: -10px;
+}
+
+.separator {
+  font-size: 5rem;
+}
+
+/* button group */
+.button-group {
+  display: flex;
+  gap: 1em;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
   }
   button {
     background-color: #f9f9f9;

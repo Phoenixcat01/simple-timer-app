@@ -12,19 +12,32 @@ const TimerDisplay = ({seconds}) => {
   }
 
   return (
-    <h1>
-      {formatTime(hours)}:{formatTime(minutes)}:{formatTime(remainingSecond)}
-    </h1>
+    <div className="timer-container">
+      <div className="time-group">
+        <span className="time-value">{formatTime(hours)}</span>
+        <span className="time-label"> Hours</span>
+      </div>
+      <span className="separator">:</span>
+      <div className="time-group">
+        <span className="time-value">{formatTime(minutes)}</span>
+        <span className="time-label"> Minutes</span>
+      </div>
+      <span className="separator">:</span>
+      <div className="time-group">
+        <span className="time-value" key={remainingSecond}>{formatTime(remainingSecond)}</span>
+        <span className="time-label"> Seconds</span>
+      </div>
+    </div>
   );
 }
 
 const TimerControl = ({onToggle, isRunning, onReset, onReverse, isReversed}) => {
   return (
-  <>
+  <div className="button-group">
     <button onClick={onToggle} >{isRunning ? 'Stop' : 'Start'}</button>
     <button onClick={onReset} >Reset</button>
     <button onClick={onReverse}>{isReversed ? 'Go Forward' : 'Go Backward'}</button>
-  </>
+  </div>
   )
 }
 
@@ -87,9 +100,9 @@ export default function App() {
 
   return (
     <>
-      <h1>Customizable TImer</h1>
+      <h1>Customizable Timer</h1>
       <div>
-        <label htmlFor="">Set TImer (in seconds) : </label>
+        <label htmlFor="">Set Timer (in seconds) : </label>
         <input type="number" value={inputSeconds} onChange={handleInputChange} />
       </div>
       <div>
