@@ -1,11 +1,11 @@
 // import { useState } from 'react'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
-const TimerDisplay = ({second}) => {
-  const hours = Math.floor(second / 3600);
-  const minutes = Math.floor((second % 3600) / 60);
-  const remainingSecond = second % 60;
+const TimerDisplay = ({seconds}) => {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSecond = seconds % 60;
 
   const formatTime = (time) => {
     return time < 10 ? `0${time}` : time;
@@ -32,13 +32,22 @@ export default function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isReversed, setIsReversed] = useState(false);
+  const [inputSeconds, setInputSeconds] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
+  const intervalRef = useRef();
 
   const toggleTimer = () => {
-    setIsRunning(prevIsRunning => !prevIsRunning)
+    if (!isRunning && seconds === 0 && inputSeconds > 0) {
+      setSeconds(inputSeconds);
+    }
+    setIsRunning(prevIsRunning => !prevIsRunning);
+    setIsFinished(false);
   };
 
   const resetTimer = () => {
-    setSeconds(0); setIsRunning(false);
+    setSeconds(0);
+    setIsRunning(false);
+    setIsFinished(false);
   };
 
   const reverseTimer = () => {
@@ -46,28 +55,46 @@ export default function App() {
     setIsRunning(false);
   }
 
+  const handleInputChange = (e) => {
+    const value = parseInt(e.target.value, 10)
+    setInputSeconds(isNaN(value) ? 0 : value);
+  };
+
   useEffect(() => {
-    let intervalId;
     if (isRunning) {
-      intervalId = setInterval(() => {
-        if (isReversed) {
-          if (seconds === 0) {
-            setIsRunning(false);
+      intervalRef.current = setInterval(() => {
+        setSeconds(prevSecond => {
+
+          if (isReversed) {
+
+            if (prevSecond === 0) {
+              setIsRunning(false);
+              setIsFinished(true);
+              return 0;
+            }
+            return prevSecond -1;
           } else {
-            setSeconds(prevSecond => prevSecond - 1)
+            return prevSecond +1;
           }
-        } else {
-          setSeconds(prevSecond => prevSecond + 1);
-        }
-      },1000);
+        });
+      }, 1000);
     }
-    return () => clearInterval(intervalId)
-  }, [isRunning, isReversed, seconds]);
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [isRunning, isReversed]);
 
   return (
     <>
+      <h1>Customizable TImer</h1>
       <div>
-        <TimerDisplay second={seconds}/>
+        <label htmlFor="">Set TImer (in seconds) : </label>
+        <input type="number" value={inputSeconds} onChange={handleInputChange} />
+      </div>
+      <div>
+        <TimerDisplay seconds={seconds}/>
+        {isFinished && <h2>FINISH!</h2>}
         <TimerControl onToggle={toggleTimer} onReset={resetTimer} onReverse={reverseTimer} isRunning={isRunning} isReversed={isReversed} />
       </div>
     </>
