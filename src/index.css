@@ -128,6 +128,48 @@ button:focus-visible {
   transition: background 0.2s ease-out;
 }
 
+.input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+  margin: 20px 0;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-field label {
+  font-size: 0.9em;
+  color: #ccc;
+  text-transform: uppercase;
+}
+
+.input-field input {
+  width: 60px;
+  padding: 0.6em 0.8em;
+  text-align: center;
+  font-size: 1.2em;
+  border-radius: 8px;
+  border: 1px solid #2f2f30;
+  background-color: #1a1a1a;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.25s;
+}
+
+.input-field input:focus {
+  border-color: #4CAF50;
+}
+
+.set-button {
+  padding: 0.6em 1.2em;
+}
+
 .timer-container {
   display: flex;
   align-items: center;

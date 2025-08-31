@@ -41,6 +41,43 @@ const TimerControl = ({onToggle, isRunning, onReset, onReverse, isReversed}) => 
   )
 }
 
+const TimerInput = ({onSetTime,}) => {
+  const [hours, setHours] = useState('');
+  const [minutes, setMinutes] = useState('');
+  const [seconds, setSeconds] =useState('');
+
+  const handleSetTimer = () => {
+    const totalSeconds =  (parseInt(hours, 10) || 0) * 3600 +
+                          (parseInt(minutes, 10) || 0) * 60 +
+                          (parseInt(seconds, 10) || 0);
+    onSetTime(totalSeconds);
+  };
+
+  const handleInputChange = (setter) => (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    setter(value);
+  };
+
+  return (
+    <div className="input-group">
+      <div className="input-field">
+        <label htmlFor="hours">Hours</label>
+        <input type="text" id="hours" value={hours} onChange={handleInputChange(setHours)} maxLength="3" />
+      </div>
+      <div className="input-field">
+        <label htmlFor="minutes">Minutes</label>
+        <input type="text" id="minutes" value={minutes} onChange={handleInputChange(setMinutes)} maxLength="2" />
+      </div>
+      <div className="input-field">
+        <label htmlFor="seconds">Seconds</label>
+        <input type="text" id="seconds" value={seconds} onChange={handleInputChange(setSeconds)} maxLength="2" />
+      </div>
+      <button onClick={handleSetTimer} className="set-button">Set</button>
+    </div>
+  )
+
+}
+
 export default function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -50,8 +87,8 @@ export default function App() {
   const intervalRef = useRef();
 
   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
-
   const cardRef = useRef(null);
+
   const handleMouseMove = (e) => {
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
@@ -68,6 +105,12 @@ export default function App() {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
+  const handleSetInputTime = (totalSeconds) => {
+    setInputSeconds(totalSeconds);
+    setSeconds(totalSeconds);
+    setIsFinished(false)
+  }
 
   const toggleTimer = () => {
     if (!isRunning && seconds === 0 && inputSeconds > 0) {
@@ -87,11 +130,6 @@ export default function App() {
     setIsReversed(prevIsReversed => !prevIsReversed);
     setIsRunning(false);
   }
-
-  const handleInputChange = (e) => {
-    const value = parseInt(e.target.value, 10)
-    setInputSeconds(isNaN(value) ? 0 : value);
-  };
 
   useEffect(() => {
     if (isRunning) {
@@ -125,10 +163,11 @@ export default function App() {
     }}>
       <div className="card" ref={cardRef}>
         <h1>Customizable Timer</h1>
-        <div>
+        {/* <div>
           <label htmlFor="">Set Timer (in seconds) : </label>
           <input type="number" value={inputSeconds} onChange={handleInputChange} />
-        </div>
+        </div> */}
+        <TimerInput onSetTime={handleSetInputTime} />
         <div className="timer-section">
           <TimerDisplay seconds={seconds}/>
           {isFinished && <h2 className="finish-message">FINISH!</h2>}
