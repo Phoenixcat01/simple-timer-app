@@ -129,9 +129,9 @@ export default function App() {
           <label htmlFor="">Set Timer (in seconds) : </label>
           <input type="number" value={inputSeconds} onChange={handleInputChange} />
         </div>
-        <div>
+        <div className="timer-section">
           <TimerDisplay seconds={seconds}/>
-          {isFinished && <h2>FINISH!</h2>}
+          {isFinished && <h2 className="finish-message">FINISH!</h2>}
           <TimerControl onToggle={toggleTimer} onReset={resetTimer} onReverse={reverseTimer} isRunning={isRunning} isReversed={isReversed} />
         </div>
       </div>

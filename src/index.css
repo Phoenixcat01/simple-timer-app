@@ -36,7 +36,7 @@ body::before {
     radial-gradient(2px 2px at 20px 30px, #eee, transparent),
     radial-gradient(2px 2px at 40px 100px, #3991da, transparent);
   background-size: 50px 50px;
-  animation: move-bg-1 160s linear infinite;
+  animation: move-bg-1 460s linear infinite;
 }
 body::after {
   content: '';
@@ -51,7 +51,7 @@ body::after {
     radial-gradient(3px 3px at -20px -20px, #fff, transparent),
     radial-gradient(3px 3px at 70px 60px, #9ae1fd, transparent);
   background-size: 80px 80px;
-  animation: move-bg-2 120s linear infinite;
+  animation: move-bg-2 320s linear infinite;
 }
 
 @keyframes move-bg-1 {
@@ -181,8 +181,28 @@ button:focus-visible {
   font-size: 5rem;
 }
 
+.timer-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.finish-message {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: #ff0077;
+  font-size: 3em;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ff0077 0 0 20px #ff0077;
+}
+
 /* button group */
 .button-group {
   display: flex;
+  margin-top: 100px;
   gap: 1em;
 }
