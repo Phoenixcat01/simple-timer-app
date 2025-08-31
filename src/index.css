@@ -163,7 +163,7 @@ button:focus-visible {
 }
 
 .input-field input:focus {
-  border-color: #4CAF50;
+  border-color: #61dafb;
 }
 
 .set-button {
@@ -248,3 +248,32 @@ button:focus-visible {
   margin-top: 100px;
   gap: 1em;
 }
+
+.timestamps-container {
+  margin-top: 20px;
+  background-color: #3b3f46;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.timestamps-container h3 {
+  margin-top: 0;
+  text-align: center;
+  color: #61dafb;
+}
+
+.timestamps-container ul {
+  list-style: none;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.timestamps-container li {
+  background-color: #2e3035;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: monospace;
+}
+

@@ -31,12 +31,13 @@ const TimerDisplay = ({seconds}) => {
   );
 }
 
-const TimerControl = ({onToggle, isRunning, onReset, onReverse, isReversed}) => {
+const TimerControl = ({onToggle, isRunning, onReset, onReverse, isReversed, onAddTimestamps}) => {
   return (
   <div className="button-group">
     <button onClick={onToggle} >{isRunning ? 'Stop' : 'Start'}</button>
     <button onClick={onReset} >Reset</button>
     <button onClick={onReverse}>{isReversed ? 'Go Forward' : 'Go Backward'}</button>
+    <button onClick={onAddTimestamps}>Time stamps</button>
   </div>
   )
 }
@@ -79,6 +80,7 @@ const TimerInput = ({onSetTime,}) => {
 }
 
 export default function App() {
+  const [timestamps, setTimestamps] = useState([])
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isReversed, setIsReversed] = useState(false);
@@ -156,6 +158,12 @@ export default function App() {
     };
   }, [isRunning, isReversed]);
 
+  const addTimestamp = () => {
+    if (isRunning) {
+      setTimestamps(prevTimestamps => [...prevTimestamps, seconds])
+    }
+  };
+
   return (
     <div className="neon-effect-container" style={{
       "--mouse-x": `${mousePosition.x}px`,
@@ -163,15 +171,19 @@ export default function App() {
     }}>
       <div className="card" ref={cardRef}>
         <h1>Customizable Timer</h1>
-        {/* <div>
-          <label htmlFor="">Set Timer (in seconds) : </label>
-          <input type="number" value={inputSeconds} onChange={handleInputChange} />
-        </div> */}
         <TimerInput onSetTime={handleSetInputTime} />
         <div className="timer-section">
           <TimerDisplay seconds={seconds}/>
           {isFinished && <h2 className="finish-message">FINISH!</h2>}
-          <TimerControl onToggle={toggleTimer} onReset={resetTimer} onReverse={reverseTimer} isRunning={isRunning} isReversed={isReversed} />
+          <TimerControl onToggle={toggleTimer} onReset={resetTimer} onReverse={reverseTimer} isRunning={isRunning} isReversed={isReversed} onAddTimestamps={addTimestamp}/>
+        </div>
+        <div className="timestamps-container">
+          <h3>Time stamps</h3>
+          <ul>
+            {timestamps.map((ts, index) => (
+              <li key={index}>Timestamps {index + 1}: {ts} seconds</li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
