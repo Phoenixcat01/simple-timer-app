@@ -254,10 +254,13 @@ button:focus-visible {
   background-color: #3b3f46;
   padding: 20px;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .timestamps-container h3 {
   margin-top: 0;
+  margin-bottom: 10px;
   text-align: center;
   color: #61dafb;
 }
@@ -267,6 +270,21 @@ button:focus-visible {
   padding: 0;
   max-height: 150px;
   overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.timestamps-container ul::-webkit-scrollbar {
+  width: 8px;
+}
+.timestamps-container ul::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+.timestamps-container ul::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
 }
 
 .timestamps-container li {
@@ -274,6 +292,24 @@ button:focus-visible {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.timestamp-label {
+  font-family: system-ui;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.timestamp-value {
   font-family: monospace;
+  font-size: 1.1em;
+  color: #61dafb;
+}
+
+.clear-button {
+  margin-top: 15px;
+  align-self: flex-end;
 }
 

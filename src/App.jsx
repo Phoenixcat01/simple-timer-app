@@ -164,6 +164,10 @@ export default function App() {
     }
   };
 
+  const clearTimestamps = () => {
+    setTimestamps([]);
+  }
+
   return (
     <div className="neon-effect-container" style={{
       "--mouse-x": `${mousePosition.x}px`,
@@ -180,10 +184,26 @@ export default function App() {
         <div className="timestamps-container">
           <h3>Time stamps</h3>
           <ul>
-            {timestamps.map((ts, index) => (
-              <li key={index}>Timestamps {index + 1}: {ts} seconds</li>
-            ))}
+            {timestamps.map((ts, index) => {
+              const hours = Math.floor(ts / 3600);
+              const minutes = Math.floor((ts % 3600) / 60);
+              const remainingSeconds = ts % 60;
+
+              const formatTime = (time) => time < 10 ? `0${time}` : time;
+
+              return (
+                <li key={index}>
+                  <span className="timestamp-label">Timestamp {index + 1}:</span>
+                  <span className="timestamp-value">
+                    {formatTime(hours)}:{formatTime(minutes)}:{formatTime(remainingSeconds)}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
+          {timestamps.length > 0 && (
+            <button className="clear-button" onClick={clearTimestamps}>Clear All</button>
+          )}
         </div>
       </div>
     </div>
