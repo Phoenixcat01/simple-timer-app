@@ -110,6 +110,10 @@ button:focus-visible {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+.card h1 {
+  display: flex;
+  justify-self: center;
+}
 
 .card::before {
   content: '';
@@ -232,12 +236,12 @@ button:focus-visible {
 
 .finish-message {
   position: absolute;
-  top: 60%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
   color: #ff0077;
-  font-size: 3em;
+  font-size: 2.5em;
   font-weight: bold;
   text-shadow: 0 0 10px #ff0077 0 0 20px #ff0077;
 }
@@ -245,7 +249,7 @@ button:focus-visible {
 /* button group */
 .button-group {
   display: flex;
-  margin-top: 100px;
+  margin-top: 80px;
   gap: 1em;
 }
 
@@ -256,6 +260,7 @@ button:focus-visible {
   border-radius: 20px;
   display: flex;
   flex-direction: column;
+  min-height: 200px;
 }
 
 .timestamps-container h3 {
@@ -268,13 +273,12 @@ button:focus-visible {
 .timestamps-container ul {
   list-style: none;
   padding: 0;
-  max-height: 150px;
-  overflow-y: auto;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   padding: 10px;
+  max-height: 50px;
+  overflow-y: auto;
 }
-
 .timestamps-container ul::-webkit-scrollbar {
   width: 8px;
 }
