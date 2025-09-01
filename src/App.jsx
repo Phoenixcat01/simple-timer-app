@@ -89,6 +89,43 @@ const TimerInput = ({onSetTime,}) => {
 
 }
 
+const Guide = ({onClose}) => {
+  return (
+    <div className="guide-modal-overlay">
+      <div className="guide-modal-content">
+        <h2>Pandduan Penggunaan Timer</h2>
+        <p>Aplikasi ini adalah timer kustom yang serbaguna. Berikut adalah cara menggunakannya:</p>
+        <div className="guide-item">
+          <h4>1. Atur Waktu</h4>
+          <p>Masukkan jam, menit, atau detik yang Anda inginkan pada kolom input, lalu klik tombol **"Set"** untuk mengatur waktu.</p>
+        </div>
+        
+        <div className="guide-item">
+          <h4>2. Mulai/Hentikan Timer</h4>
+          <p>Tombol **"Start"** akan memulai hitungan waktu maju. Klik tombol yang sama (berubah menjadi **"Stop"**) untuk menghentikannya.</p>
+        </div>
+        
+        <div className="guide-item">
+          <h4>3. Mode Maju & Mundur</h4>
+          <p>Gunakan tombol **"Go Forward"** atau **"Go Backward"** untuk beralih antara hitungan maju dan mundur. Panah di tengah akan menunjukkan arahnya.</p>
+        </div>
+        
+        <div className="guide-item">
+          <h4>4. Catat Momen Penting</h4>
+          <p>Selama timer berjalan, klik tombol **"Time stamps"** untuk mencatat waktu saat ini. Semua catatan akan muncul di bawah.</p>
+        </div>
+        
+        <div className="guide-item">
+          <h4>5. Atur Ulang & Bersihkan</h4>
+          <p>Tombol **"Reset"** akan mengembalikan timer ke nol. Jika ada catatan waktu, tombol **"Clear All"** akan muncul untuk menghapusnya.</p>
+        </div>
+
+        <button className="guide-close-button" onClick={onClose}>Tutup</button>
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [timestamps, setTimestamps] = useState([])
   const [seconds, setSeconds] = useState(0);
@@ -96,6 +133,7 @@ export default function App() {
   const [isReversed, setIsReversed] = useState(false);
   const [inputSeconds, setInputSeconds] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
   const intervalRef = useRef();
 
   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
@@ -183,6 +221,7 @@ export default function App() {
       "--mouse-x": `${mousePosition.x}px`,
       "--mouse-y": `${mousePosition.y}px`
     }}>
+      <button className="info-button" onClick={() => setShowGuide(true)}>?</button>
       <div className="card" ref={cardRef}>
         <h1>Customizable Timer</h1>
         <TimerInput onSetTime={handleSetInputTime} />
@@ -217,6 +256,7 @@ export default function App() {
           )}
         </div>
       </div>
+      {showGuide && <Guide onClose={() => setShowGuide(false)} />}
     </div>
   )
 };
