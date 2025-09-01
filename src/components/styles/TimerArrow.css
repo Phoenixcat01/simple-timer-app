@@ -1,0 +1,24 @@
+.arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.arrow {
+    font-size: 2em;
+    color: rgba(255, 255, 255, 0.5);
+    transition: transform 0.5s ease-out;
+}
+
+.arrow.backward {
+    transform: scaleX(1);
+}
+
+.arrow.forward {
+    transform: scaleX(-1);
+}

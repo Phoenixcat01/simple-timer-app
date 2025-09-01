@@ -1,0 +1,6 @@
+/* button group */
+.button-group {
+    display: flex;
+    margin-top: 80px;
+    gap: 1em;
+}

@@ -1,0 +1,66 @@
+.timestamps-container {
+    margin-top: 20px;
+    background-color: #3b3f46;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+}
+
+.timestamps-container h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #61dafb;
+}
+
+.timestamps-container ul {
+    list-style: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    max-height: 50px;
+    overflow-y: auto;
+}
+
+.timestamps-container ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.timestamps-container ul::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.timestamps-container ul::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.timestamps-container li {
+    background-color: #2e3035;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timestamp-label {
+    font-family: system-ui;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.timestamp-value {
+    font-family: monospace;
+    font-size: 1.1em;
+    color: #61dafb;
+}
+
+.clear-button {
+    margin-top: 10px;
+    align-self: flex-end;
+}
