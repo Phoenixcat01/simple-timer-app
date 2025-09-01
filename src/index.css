@@ -234,6 +234,28 @@ button:focus-visible {
   align-items: center;
 }
 
+.arrow-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.arrow {
+  font-size: 2em;
+  color: rgba(255, 255, 255, 0.5);
+  transition: transform 0.5s ease-out;
+}
+.arrow.backward {
+  transform: scaleX(1);
+}
+.arrow.forward {
+  transform: scaleX(-1);
+}
+
 .finish-message {
   position: absolute;
   top: 65%;
@@ -272,7 +294,6 @@ button:focus-visible {
 
 .timestamps-container ul {
   list-style: none;
-  padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   padding: 10px;
@@ -313,7 +334,7 @@ button:focus-visible {
 }
 
 .clear-button {
-  margin-top: 15px;
+  margin-top: 10px;
   align-self: flex-end;
 }
 

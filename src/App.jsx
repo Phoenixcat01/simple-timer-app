@@ -31,12 +31,22 @@ const TimerDisplay = ({seconds}) => {
   );
 }
 
+const TimerArrow = ({ isReversed }) => {
+  return (
+    <div className="arrow-container">
+      <span className={`arrow ${isReversed ? 'backward' : 'forward'}`}>
+        ⮜
+      </span>
+    </div>
+  );
+}
+
 const TimerControl = ({onToggle, isRunning, onReset, onReverse, isReversed, onAddTimestamps}) => {
   return (
   <div className="button-group">
     <button onClick={onToggle} >{isRunning ? 'Stop' : 'Start'}</button>
     <button onClick={onReset} >Reset</button>
-    <button onClick={onReverse}>{isReversed ? 'Go Forward' : 'Go Backward'}</button>
+    <button onClick={onReverse} style={{"minWidth":'140px'}}>{isReversed ? 'Go Forward' : 'Go Backward'}</button>
     <button onClick={onAddTimestamps}>Time stamps</button>
   </div>
   )
@@ -178,6 +188,7 @@ export default function App() {
         <TimerInput onSetTime={handleSetInputTime} />
         <div className="timer-section">
           <TimerDisplay seconds={seconds}/>
+          <TimerArrow isReversed={isReversed}/>
           {isFinished && <h2 className="finish-message">FINISH!</h2>}
           <TimerControl onToggle={toggleTimer} onReset={resetTimer} onReverse={reverseTimer} isRunning={isRunning} isReversed={isReversed} onAddTimestamps={addTimestamp}/>
         </div>
